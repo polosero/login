@@ -181,12 +181,9 @@ function setValues(form, values) {
 }
 
 function setValuesByCls(el, values) {
-    for (const name in values) {
-        const input = el.querySelector(`.${name}`);
-        if (!input)
-            continue;
-        input.innerHTML = values[name];
-    }
+    for (const name in values)
+        for (const input of el.querySelectorAll(`.${name}`))
+            input.innerHTML = values[name];
 }
 
 
