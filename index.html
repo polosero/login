@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8">
+    <title> Přihlášení | Pološero </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="default.css">
+    <link rel="stylesheet" href="https://polo-sero.cz/styles/theme.css">
+    <script src="main.js"></script>
+    <script src="lib.js"></script>
+    <style media="screen">
+      #login-form {
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+      }
+      #login-form > a:not(:first-child) { margin-top: 1rem; }
+      #login-form > a > img { height: 30vh; width: auto; }
+      #access:not(:empty) + p { display: none; }
+    </style>
+  </head>
+  <body>
+    <form id="login-form" onsubmit="formSubmit(this, event)">
+      <a href="https://polo-sero.cz">
+        <img src="https://polo-sero.cz/img/logo-transparent-small.png" alt="Pološero">
+      </a>
+      <label> nick
+        <input type="text" name="nick" required autofocus>
+      </label>
+      <label> heslo
+        <input type="password" name="password" required>
+      </label>
+      <button type="submit"> Přihlásit </button>
+      <a href="register.html"> Registrace </a>
+      <a href="password.html"> Reset hesla </a>
+    </form>
+    <!------>
+    <aside>
+      <button type="button" onclick="logout()"> Odhlásit </button>
+    </aside>
+    <h1>Přihlášený uživatel: <span id="username"></span></h1>
+    <h2>Oprávnění</h2>
+    <dl id="access"></dl>
+    <p> Pokračuj na: <a href="https://profile.polo-sero.cz">https://profile.polo-sero.cz</a> </p>
+    <hr />
+    <section class="lvl-3" hidden>
+      <article>
+        <h2>Oprávnění všech uživatelů</h2>
+        <dl id="user-list">
+        </dl>
+      </article>
+      <hr />
+      <form onsubmit="addUser(this, event)">
+        <fieldset>
+          <legend>Přidat uživatele</legend>
+          <label> nick
+            <input name="nick" type="text" required>
+          </label>
+          <label> heslo
+            <input name="password" type="password" required>
+          </label>
+          <label> heslo znovu
+            <input name="password2" type="password" required>
+          </label>
+          <button type="submit"> Add </button>
+        </fieldset>
+      </form>
+    </section>
+
+  </body>
+</html>

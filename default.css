@@ -1,0 +1,133 @@
+html, input, button, textarea, select {
+    font-family: sans-serif;
+    font-size: 1.1rem;
+}
+@media screen {
+    html, input, button, textarea, select {
+        background-color: silver;
+    }
+}
+
+#login-form:not([hidden]) ~ *, [hidden] {
+    display: none !important;
+}
+
+hr {
+    margin: 2vw;
+}
+
+dl:empty::after {
+    content: "N/A";
+}
+dt {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+form.compact {
+    display: block;
+}
+.compact input {
+    width: 5em;
+}
+.compact input[type=number] {
+    width: 3em;
+}
+
+form, fieldset, label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+label, :not(label) > input, button, .error-msg {
+    margin: 0.2rem 0;
+}
+label {
+    position: relative;
+}
+label > .icon {
+    position: absolute;
+    right: 0;
+}
+label:not(:hover) > .icon {
+    display: none;
+}
+textarea {
+    height: 6em;
+}
+button {
+    cursor: pointer;
+}
+
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+aside {
+    float: right;
+    align-self: flex-end;
+}
+
+.error-msg {
+    background-color: rgba(255, 0, 0, 0.1);
+    /*color: black;*/
+    border: 1px solid red;
+    border-radius: 0.3rem;
+    padding: 0.3rem;
+    display: inline-block;
+    min-width: 15rem;
+    text-align: center;
+}
+.error-msg:empty {
+    display: none;
+}
+
+
+.dialog {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.dialog > fieldset {
+    position: relative;
+    margin: auto;
+    width: 90%;
+    max-width: 30rem;
+}
+:not(.dialog) > fieldset > .close {
+    display: none;
+}
+
+.dialog label, .dialog textarea {
+    width: 100%;
+}
+.dialog .close {
+    position: absolute;
+    top: -0.5rem;
+    right: 0.1rem;
+    padding: 0.2rem;
+    cursor: pointer;
+    z-index: 11;
+}
+
+@media print {
+    nav, footer {
+        display: none;
+    }
+}
+
+
+body:not([data-hash=index]) [data-page=index],
+body:not([data-hash=about]) [data-page=about],
+body:not([data-hash=info]) [data-page=info],
+body:not([data-hash=char]) [data-page=char],
+body:not([data-hash=skills]) [data-page=skills],
+body:not([data-hash=contact]) [data-page=contact] {
+    display: none;
+}

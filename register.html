@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8">
+    <title> Registrace | Pološero </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="default.css">
+    <link rel="stylesheet" href="https://polo-sero.cz/styles/theme.css">
+    <style media="screen">
+      form { align-items: center; }
+      body > div { text-align: center; max-width: 50rem; margin: auto; }
+    </style>
+    <script src="lib.js"></script>
+    <script type="text/javascript">
+        function mailRegister(form, event) {
+            event.stopPropagation();
+            event.preventDefault();
+            setError(form);
+            XHR(
+              'POST',
+              '/auth/register',
+              extract(form)
+            ).then(registeredOK)
+             .catch(handleError)
+        }
+        function registeredOK(response) {
+          console.log(response);
+          document.getElementById('reg-form').hidden = true;
+          document.getElementById('reg-ok').hidden = false;
+        }
+        function handleError(error) {
+          console.error(error);
+          setError(form, error);
+        }
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1> Registrace pro Pološero: Poslední Kapitola </h1>
+      <p> 22. - 24. 3. 2019 Olomouc </p>
+    </header>
+    <form id="reg-form" onsubmit="mailRegister(this, event)">
+      <label> e-mail
+        <input type="email" name="mail" required autofocus>
+      </label>
+      <button type="submit"> Poslat registrační mail </button>
+      <p> Registrací beru na vědomí
+        <a href="https://polo-sero.cz/docs/gdpr.pdf" target="_blank">
+          zpracování mých osobních údajů
+        </a>
+      </p>
+    </form>
+    <div id="reg-ok" hidden>
+      <h2> E-mail odeslán </h2>
+      <p>
+        Na uvedený e-mail byl odeslán odkaz k dokončení registrace.
+        Tohle může chvilku trvat. Pokud mail nevidíš, zkontroluj spam.
+        <br>
+        Odkaz bude platný pouze 30 minut.
+        <br> <br> <a href="https://polo-sero.cz/docs/gdpr.pdf" target="_blank"> Informace o zpracování osobních údajů </a>
+      </p>
+    </div>
+  </body>
+</html>

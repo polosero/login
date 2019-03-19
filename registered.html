@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title> Dokončení registrace | Pološero </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="default.css">
+    <link rel="stylesheet" href="https://polo-sero.cz/styles/theme.css">
+    <style media="screen">
+      form { align-items: center; }
+      body > div { text-align: center; }
+    </style>
+    <script src="lib.js"></script>
+    <script type="text/javascript">
+        window.addEventListener('load', function () {
+            if (!window.location.hash)
+                window.location.replace("register.html");
+        });
+        function finish(form, event) {
+            event.stopPropagation();
+            event.preventDefault();
+            setError(form);
+            const data = extract(form);
+            if (data.password !== data.password2) {
+                setError(form, "Hesla se neshodují");
+                return;
+            }
+            let hash = window.location.hash;
+            if (hash.startsWith('#'))
+                hash = hash.slice(1);
+            XHR(
+              'POST',
+              '/auth/register/' + hash,
+              data
+            ).then(registeredOK)
+             .catch(handleError)
+        }
+        function registeredOK(response) {
+          console.log(response);
+          document.getElementById('reg-form').hidden = true;
+          document.getElementById('reg-ok').hidden = false;
+        }
+        function handleError(error) {
+          console.error(error);
+          setError(form, error);
+        }
+    </script>
+  </head>
+  <body>
+    <form id="reg-form" onsubmit="finish(this, event)">
+      <label> Přihlašovací jméno
+        <input type="text" name="name" placeholder="přezdívka / nick" required>
+      </label>
+      <label> Heslo
+        <input type="password" name="password" required>
+      </label>
+      <label> Heslo znovu
+        <input type="password" name="password2" required>
+      </label>
+      <button type="submit"> Vytvořit účet </button>
+      <br> <a href="https://polo-sero.cz/docs/gdpr.pdf" target="_blank"> Informace o zpracování osobních údajů </a>
+    </form>
+    <div id="reg-ok" hidden>
+      <h2> Registrace úspěšná </h2>
+      <p>
+        Přihlaš se na
+        <a href="https://login.polo-sero.cz"> login.polo-sero.cz </a>
+      </p>
+      <br> <br> <a href="https://polo-sero.cz/docs/gdpr.pdf" target="_blank"> Informace o zpracování osobních údajů </a>
+    </div>
+  </body>
+</html>
